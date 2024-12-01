@@ -13,13 +13,12 @@ export const Container = w.div(`
     mobile:min-h-full
     mobile:max-h-full
     mobile:border-0
-    mobile:h-[100vh]
+    mobile:h-[100dvh]
     mobile:rounded-none
 
     laptop:border-[10px]
     laptop:max-w-[375px]
     laptop:max-h-[750px]
-    laptop:h-[calc(100vh-120px)]
     laptop:rounded-[40px]
 `)
 

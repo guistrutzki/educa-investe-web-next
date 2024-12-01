@@ -8,7 +8,6 @@ import { InitialScreen } from '../InitialScreen'
 import { ChatScrollList } from '../ChatScrollList'
 import { useChat, type UserInput } from '@/store/useChat'
 import { botMessages } from '@/data/messages'
-import { Composer } from '../Composer/Composer'
 
 export const MobileFrame = () => {
   const [showInitialScreen, setShowInitialScreen] = useState(true)
@@ -18,7 +17,9 @@ export const MobileFrame = () => {
 
   const callChatGPT = async (data: UserInput[]) => {
     try {
-      const url = 'http://localhost:3333/investor-profile'
+      const baseURL = process.env.NEXT_PUBLIC_API_URL as string
+
+      const url = `${baseURL}/investor-profile`
       const response = await axios.post(url, {
         firstFlowQuestions: {
           gender: 'feminino',

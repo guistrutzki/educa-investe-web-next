@@ -4,7 +4,7 @@ export const Container = w.div(`
   absolute
   bottom-0
   w-full
-  bg-white
+  bg-[#f9f9f9]
   left-0
   pt-[16px]
   pb-[16px]
@@ -22,6 +22,7 @@ export const InputWrapper = w.div(`
   border
   mx-8
   overflow-hidden
+  bg-white
 `)
 
 export const Field = w.input(`

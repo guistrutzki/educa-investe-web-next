@@ -7,7 +7,7 @@ export const Container = w.div(`
   justify-between
   flex-col
   p-[40px]
-  pt-[30%]
+  pt-[50%]
 `)
 
 export const ContentWrapper = w.div(`
