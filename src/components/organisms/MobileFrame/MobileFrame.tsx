@@ -182,7 +182,12 @@ export const MobileFrame = () => {
         user: 'bot',
       })
 
-      recommendations.forEach((eachRecommendation, index) => {
+      const typedRecommendations = recommendations as {
+        actions: string
+        description: string
+      }[]
+
+      typedRecommendations.forEach((eachRecommendation, index) => {
         addMessage({
           id: String(index),
           message: eachRecommendation.actions,
