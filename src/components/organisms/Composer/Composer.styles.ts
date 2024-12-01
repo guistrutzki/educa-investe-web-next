@@ -18,7 +18,7 @@ export const InputWrapper = w.div(`
   flex
   min-h-[40px]
   rounded-md
-  border-black
+  border-green-dark
   border
   mx-8
   overflow-hidden
