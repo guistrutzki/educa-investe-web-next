@@ -1,6 +1,12 @@
 import * as S from './InitialScreen.styles'
 
-export const InitialScreen = () => {
+interface InitialScreenProps {
+  onInitialScreenButtonClick: () => void
+}
+
+export const InitialScreen = ({
+  onInitialScreenButtonClick,
+}: InitialScreenProps) => {
   return (
     <S.Container>
       <S.ContentWrapper>
@@ -12,7 +18,9 @@ export const InitialScreen = () => {
         </S.Message>
       </S.ContentWrapper>
 
-      <S.Button>Conversar com o assistente</S.Button>
+      <S.Button onClick={onInitialScreenButtonClick}>
+        Conversar com o assistente
+      </S.Button>
     </S.Container>
   )
 }
