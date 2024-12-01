@@ -22,6 +22,8 @@ export const ChatScrollList = () => {
   const addMessage = useChat(state => state.addMessage)
   const userInputs = useChat(state => state.userInputs)
   const addUserInput = useChat(state => state.addUserInput)
+  const isTyping = useChat(state => state.isTyping)
+  const setIsTyping = useChat(state => state.setIsTyping)
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
@@ -88,40 +90,44 @@ export const ChatScrollList = () => {
   }, [userInputs])
 
   const handleFirstChatGPTFlow = async () => {
-    const response = await callChatGPT(userInputs)
+    try {
+      setIsTyping(true)
+      const response = await callChatGPT(userInputs)
 
-    const { description, recommendations } = response.data.chatReply
+      const { description, recommendations } = response.data.chatReply
 
-    addMessage({
-      id: v4(),
-      message: description,
-      field: 'recommendations',
-      user: 'bot',
-    })
-
-    const typedRecommendations = recommendations as {
-      actions: string
-      description: string
-    }[]
-
-    typedRecommendations.forEach((eachRecommendation, index) => {
       addMessage({
-        id: String(index),
-        message: eachRecommendation.actions,
-        description: eachRecommendation.description,
-        user: 'bot',
+        id: v4(),
+        message: description,
         field: 'recommendations',
+        user: 'bot',
       })
-    })
+
+      const typedRecommendations = recommendations as {
+        actions: string
+        description: string
+      }[]
+
+      typedRecommendations.forEach((eachRecommendation, index) => {
+        addMessage({
+          id: String(index),
+          message: eachRecommendation.actions,
+          description: eachRecommendation.description,
+          user: 'bot',
+          field: 'recommendations',
+        })
+      })
+    } catch (err) {
+      console.log(err)
+    } finally {
+      setIsTyping(false)
+    }
   }
 
   const handleOnSendMessage = (text: string) => {
     const botMessagesShown = messages.filter(
       eachMessage => eachMessage.user === 'bot'
     )
-
-    console.log('BOT MESSAGES SHOW', botMessagesShown)
-    console.log('Text', text)
 
     addUserInput({
       id: v4(),
@@ -133,6 +139,8 @@ export const ChatScrollList = () => {
       return
     }
 
+    setIsTyping(true)
+
     const nextBotMessage = botMessages[botMessagesShown.length]
 
     setTimeout(() => {
@@ -142,11 +150,10 @@ export const ChatScrollList = () => {
         field: nextBotMessage.field,
         user: 'bot',
       })
+
+      setIsTyping(false)
     }, 1000)
   }
-
-  console.log('USER Inputs', userInputs)
-  console.log('USER Messages', messages)
 
   return (
     <S.Container>
@@ -155,6 +162,19 @@ export const ChatScrollList = () => {
           <ChatMessage data={eachMessage} key={eachMessage.id} />
         ))}
       </S.ScrollArea>
+
+      {isTyping && (
+        <S.TypingIndicator>
+          <S.AvatarWrapper>
+            <S.Avatar src="/images/app-logo-icon.png" />
+          </S.AvatarWrapper>
+          <S.TypingIndicatorDotsWrapper>
+            {[1, 2, 3].map(eachDot => (
+              <S.Dots key={eachDot} index={eachDot} />
+            ))}
+          </S.TypingIndicatorDotsWrapper>
+        </S.TypingIndicator>
+      )}
 
       <Composer onSend={handleOnSendMessage} />
     </S.Container>

@@ -9,14 +9,18 @@ export type UserInput = {
 
 type ChatStore = {
   messages: Message[]
-  addMessage: (message: Message) => void
   userInputs: UserInput[]
+  isTyping: boolean
+
+  addMessage: (message: Message) => void
   addUserInput: (userInput: UserInput) => void
+  setIsTyping: (isTyping: boolean) => void
 }
 
 export const useChat = create<ChatStore>(set => ({
   messages: [],
   userInputs: [],
+  isTyping: true,
 
   addMessage: (message: Message) =>
     set(state => ({ messages: [...state.messages, message] })),
@@ -29,4 +33,6 @@ export const useChat = create<ChatStore>(set => ({
         { id: userInput.id, user: 'user', field: '', message: userInput.text },
       ],
     })),
+
+  setIsTyping: (isTyping: boolean) => set({ isTyping }),
 }))

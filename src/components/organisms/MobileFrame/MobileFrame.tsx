@@ -13,19 +13,19 @@ import { botMessages } from '@/data/messages'
 export const MobileFrame = () => {
   const [showInitialScreen, setShowInitialScreen] = useState(true)
   const addMessage = useChat(state => state.addMessage)
-  const addUserInput = useChat(state => state.addUserInput)
-  const userInputs = useChat(state => state.userInputs)
+  const setIsTyping = useChat(state => state.setIsTyping)
 
   const onInitialScreenButtonClick = async () => {
     setShowInitialScreen(false)
 
     setTimeout(() => {
       addMessage(botMessages[0])
-    }, 500)
+    }, 1000)
 
     setTimeout(() => {
       addMessage(botMessages[1])
-    }, 1500)
+      setIsTyping(false)
+    }, 2000)
   }
 
   return (
