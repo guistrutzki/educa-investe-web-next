@@ -69,7 +69,7 @@ export const Message = w.p(
 `,
   {
     variants: {
-      istitle: (istitle: boolean) => (istitle ? 'font-bold' : ''),
+      istitle: (istitle: boolean) => (istitle ? 'font-bold text-xs' : ''),
       user: (user: User) =>
         user === 'user'
           ? 'rounded-tr-none text-white'
