@@ -13,4 +13,6 @@ export const ScrollArea = w.div(`
   pb-[100px]
   pt-[32px]
   px-[16px]
+
+  mobile:pt-[100px]
 `)

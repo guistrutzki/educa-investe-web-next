@@ -2,18 +2,25 @@ import w from 'windstitch'
 
 export const Container = w.div(`
     bg-white
-    max-w-[375px]
-    h-[calc(100vh-120px)]
-    max-h-[750px]
-    rounded-[40px]
     flex
     justify-center
     flex-1
     relative
     overflow-hidden
-    pt-[100px]
-    border-[10px]
     border-[#212121]	
+
+    mobile:max-w-full
+    mobile:min-h-full
+    mobile:max-h-full
+    mobile:border-0
+    mobile:h-[100vh]
+    mobile:rounded-none
+
+    laptop:border-[10px]
+    laptop:max-w-[375px]
+    laptop:max-h-[750px]
+    laptop:h-[calc(100vh-120px)]
+    laptop:rounded-[40px]
 `)
 
 export const FrameHeader = w.div(`
@@ -27,4 +34,7 @@ export const FrameHeader = w.div(`
   z-10
   absolute
   top-0
+
+  mobile:hidden
+  laptop:block
 `)

@@ -1,12 +1,15 @@
 import w from 'windstitch'
 
 export const Container = w.div(`
-  flex
   items-center
   flex-1
   flex-col
-  mr-[10%]
   gap-[40px]
+
+  mobile:hidden
+  mobile:mr-0
+  laptop:flex
+
 `)
 
 export const LogoImage = w.img(`

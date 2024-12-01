@@ -5,5 +5,10 @@ export const Container = w.main(`
   bg-gradient-to-l from-green-dark from-20% via-black via-90%
   min-h-screen
   items-center
-  px-[10%]
+
+  mobile:justify-center
+  mobile:px-0
+
+  laptop:justify-start
+  laptop:px-[10%]
 `)
